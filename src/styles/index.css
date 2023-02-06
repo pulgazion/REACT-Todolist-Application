@@ -35,6 +35,7 @@ input[type="text"] {
 
 li {
 	display: flex;
+	position: relative;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10px;
@@ -44,7 +45,21 @@ li {
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 }
 
+  
+li:hover .delete-button {
+	display: block;
+  }
+  
+  .delete-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+  }
+
 .fa-trash-alt {
 	cursor: pointer;
 	color: #d9534f;
+	margin-top: 12px;
+	margin-right: 12px;
 }

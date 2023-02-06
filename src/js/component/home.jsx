@@ -4,6 +4,13 @@ const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
+  const agregarTarea = (e) => {
+    e.preventDefault();
+    if (inputValue.length === 0) return;
+    setTodos(todos.concat(inputValue));
+    setInputValue("");
+  };
+
   return (
     <div className="container">
       <h1>My to do lists</h1>
@@ -15,32 +22,28 @@ const Home = () => {
             value={inputValue}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setTodos(todos.concat(inputValue));
-                setInputValue("");
+                agregarTarea(e);
               }
             }}
             placeholder="What do you need to do?"
           />
           <i
-            class="fas fa-plus"
-            onClick={() => setTodos(todos.concat(inputValue))}
+            className="fas fa-plus"
+            onClick={agregarTarea}
             style={{ cursor: "pointer", marginLeft: "0.5em" }}
           ></i>
         </li>
-
         {todos.map((item, index) => (
-          <li>
+          <li key={index}>
             {item}{" "}
-            <i
-              class="fas fa-trash-alt"
-              onClick={() =>
-                setTodos(todos.filter((t, currentIndex) => index != currentIndex))
+            <i className="fas fa-trash-alt delete-button" onClick={() =>
+                setTodos(todos.filter((t, currentIndex) => index !== currentIndex))
               }
             ></i>{" "}
           </li>
         ))}
       </ul>
-      <div>{todos.length} tasks</div>
+      <div>{todos.length ? `${todos.length} tasks` : "No pending tasks, please add new ones"}</div>
     </div>
   );
 };
